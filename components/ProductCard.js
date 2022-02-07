@@ -3,6 +3,9 @@ import styles from '../styles/ProductCard.module.css';
 
 import Image from 'next/image';
 
+import { formatDate } from '../utils/date';
+import { formatPrice } from '../utils/price';
+
 
 
 const ProductCard = ({ product }) => {
@@ -10,18 +13,18 @@ const ProductCard = ({ product }) => {
         <div className={styles.container}>
             <div className={styles.cardBody}>
                 <div className={styles.leftSection}>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png" width="70" height="70" alt="Product's Image"/>
+                    <img src={product.image} width="70" height="70" alt={`${product.product_name}' image`}/>
                     <p>Location</p>
                 </div>
                 <div className={styles.rightSection}>
-                    <h3>Apple</h3>
-                    <p>Brand Name</p>
-                    <p className={styles.priceText}>$ 29.99</p>
-                    <p>Date: 10:12:2021</p>
+                    <h3>{product.product_name}</h3>
+                    <p>{product.brand_name}</p>
+                    <p className={styles.priceText}>$ {formatPrice(product.price)} </p>
+                    <p>Date: {formatDate(product.date)}</p>
                 </div>
             </div>
             <div className={styles.cardFooter}>
-                <h3 className={styles.productDescription}>Description of the Product/Item</h3>
+                <h3 className={styles.productDescription}>{product.discription}</h3>
             </div>
         </div>
     );

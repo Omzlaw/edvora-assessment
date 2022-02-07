@@ -2,10 +2,14 @@
 import styles from '../styles/Home.module.css';
 
 import Layout from '../components/Layout';
+import ProductsContext from '../contexts/products/productsContext';
 
 export default function Home({products}) {
   return (
     <div className={styles.container}>
+        {/* <ProductsContext.Provider value={products}>
+
+        </ProductsContext> */}
         <Layout products={products}/>
     </div>
   )
