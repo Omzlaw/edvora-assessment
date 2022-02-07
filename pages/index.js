@@ -4,15 +4,25 @@ import styles from '../styles/Home.module.css';
 import Layout from '../components/Layout';
 import ProductsContext from '../contexts/products/productsContext';
 
+import {
+  getProductNames,
+  getStates,
+  getCities,
+} from "../selectors/ProductSelector";
+
+
+
 export default function Home({products}) {
+
   return (
     <div className={styles.container}>
-        {/* <ProductsContext.Provider value={products}>
-
-        </ProductsContext> */}
-        <Layout products={products}/>
+          <Layout products={products} />
     </div>
   )
+}
+
+const filterProducts = () => {
+
 }
 
 

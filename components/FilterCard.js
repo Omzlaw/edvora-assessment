@@ -1,10 +1,12 @@
+import { useContext } from 'react';
+import ProductsContext from '../contexts/products/productsContext';
 import styles from '../styles/FilterCard.module.css';
 
 import Dropdown from './Dropdown';
 
 const FilterCard = (props) => {
-    const {heading, filters} = props;
-    const {productNames, states, cities} = filters;
+    const {heading} = props;
+    const {productNames, states, cities} = useContext(ProductsContext);
     return (
         <div className={styles.container}>
             <h1 className={styles.text}>{heading}</h1>
