@@ -5,10 +5,11 @@ import ProductCard from './ProductCard';
 
 
 const ProductCategory = (props) => {
-
+    const {productName, products} = props;
+    console.log(products);
     return (
         <div className={styles.container}>
-            <h1 className={styles.categoryText}>Apple</h1>
+            <h1 className={styles.categoryText}>{productName}</h1>
             <div className={styles.divider}></div>
             <div className={styles.productContainer}>
             <div className={styles.productSliderContainer}>

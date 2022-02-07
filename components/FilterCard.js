@@ -3,14 +3,15 @@ import styles from '../styles/FilterCard.module.css';
 import Dropdown from './Dropdown';
 
 const FilterCard = (props) => {
-    const {heading} = props;
+    const {heading, filters} = props;
+    const {productNames, states, cities} = filters;
     return (
         <div className={styles.container}>
             <h1 className={styles.text}>{heading}</h1>
             <div className={styles.line}></div>
-            <Dropdown filterType="Products" />
-            <Dropdown filterType="State" />
-            <Dropdown filterType="City" />
+            <Dropdown options={productNames} filterType="Products" />
+            <Dropdown options={states} filterType="State" />
+            <Dropdown options={cities} filterType="City" />
         </div>
     );
 }
