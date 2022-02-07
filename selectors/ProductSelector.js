@@ -5,6 +5,16 @@ export const getProductsByProductName =  (products, productName) => {
     return product;
 }
 
+export const getProductsByState = (products, state) => {
+    const product = products.filter(product => product.address.state === state);
+    return product;
+}
+
+export const getProductsByCity = (products, city) => {
+    const product = products.filter(product => product.address.city === city);
+    return product;
+}
+
 export const getProductNames = (products) => {
 
     const map = new Map(products.map(({

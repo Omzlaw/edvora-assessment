@@ -8,6 +8,8 @@ import {
   getStates,
   getCities,
   getProductsByProductName,
+  getProductsByState,
+  getProductsByCity
 } from "../selectors/ProductSelector";
 
 import ProductsContext from "../contexts/products/productsContext";
@@ -32,6 +34,16 @@ class Layout extends React.Component {
           products: type != filter ? getProductsByProductName(this.props.products, filter) : this.props.products,
         });
         break;
+      case 'State':
+        this.setState({
+          products: type != filter ? getProductsByState(this.props.products, filter) : this.props.products,
+        });
+        break;
+        case 'City':
+          this.setState({
+            products: type != filter ? getProductsByCity(this.props.products, filter) : this.props.products,
+          });
+          break;
       default:
         break;
     }

@@ -12,11 +12,9 @@ import {
 
 const FilterCard = (props) => {
     const {heading} = props;
-    const {unFilteredProducts} = useContext(ProductsContext);
+    const {unFilteredProducts, states, cities} = useContext(ProductsContext);
 
     const productNames = getProductNames(unFilteredProducts);
-    const states = getStates(unFilteredProducts);
-    const cities = getCities(unFilteredProducts);
 
     return (
         <div className={styles.container}>
