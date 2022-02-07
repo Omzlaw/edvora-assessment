@@ -1,5 +1,7 @@
-import { createContext } from "react";
+import {
+    createContext
+} from "react";
 
-const ProductsContext = createContext(undefined); 
+const ProductsContext = createContext(undefined);
 
 export default ProductsContext;
