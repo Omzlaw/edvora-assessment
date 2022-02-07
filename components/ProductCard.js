@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from '../styles/ProductCard.module.css';
 
 import Image from 'next/image';
@@ -9,7 +10,7 @@ const ProductCard = ({ product }) => {
         <div className={styles.container}>
             <div className={styles.cardBody}>
                 <div className={styles.leftSection}>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png" width="70" height="70"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png" width="70" height="70" alt="Product's Image"/>
                     <p>Location</p>
                 </div>
                 <div className={styles.rightSection}>

@@ -1,9 +1,15 @@
 import styles from '../styles/Layout.module.css';
+
 import FilterCard from './FilterCard';
 import ProductCategory from './ProductCategory';
 
+import { sortProductsByProductName } from '../selectors/ProductSelector';
 
-const Layout = () => {
+
+
+const Layout = (props) => {
+    const {products} = props;
+    console.log(sortProductsByProductName(products));
     return (
         <div className={styles.container}>
             <div className={styles.leftContainer}>
@@ -14,10 +20,9 @@ const Layout = () => {
                 <h2 className={styles.subHeader}>Products</h2>
 
                 <div className={styles.productCategoryContainer}>
-                    <ProductCategory />
-                    <ProductCategory />
-                    <ProductCategory />
-                    <ProductCategory />
+                    {
+                        products.map((product, index) => (<ProductCategory key={index} />))
+                    }
                 </div>
             </div>
 
@@ -25,5 +30,7 @@ const Layout = () => {
 
     )
 }
+
+
 
 export default Layout;

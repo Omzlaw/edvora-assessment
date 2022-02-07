@@ -5,8 +5,8 @@ const Dropdown = (props) => {
     const {filterType} = props;
     return (
         <div className={styles.container}>
-            <select className={styles.dropdown}>
-                <option className={styles.option} value="" disabled selected>{filterType}</option>
+            <select onChange={() => {}} value={filterType} className={styles.dropdown}>
+                <option className={styles.option} value={filterType} disabled>{filterType}</option>
             </select>
         </div>
     );
