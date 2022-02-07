@@ -22,27 +22,36 @@ class Layout extends React.Component {
 
     this.state = {
       products: props.products,
+      currentFilters: {
+        Products: 'Products',
+        State: 'State',
+        City: 'City'
+      },
       filterProducts: this.filterProducts
     }
   }
 
   filterProducts = (filter, type) => {
-
+    const updatedFilters = this.state.currentFilters
+    updatedFilters[type] = filter;
     switch (type) {
       case 'Products':
         this.setState({
           products: type != filter ? getProductsByProductName(this.props.products, filter) : this.props.products,
+          currentFilters: updatedFilters
         });
         break;
       case 'State':
-        this.setState({
-          products: type != filter ? getProductsByState(this.props.products, filter) : this.props.products,
-        });
+        this.setState(prevState => ({
+          products: type != filter ? getProductsByState(this.props.products, filter) : getProductsByProductName(this.props.products, prevState.currentFilters['Products']),
+          currentFilters: updatedFilters
+        }));
         break;
         case 'City':
-          this.setState({
-            products: type != filter ? getProductsByCity(this.props.products, filter) : this.props.products,
-          });
+          this.setState(prevState => ({
+            products: type != filter ? getProductsByCity(this.props.products, filter) : getProductsByState(this.props.products, stprevStateate.currentFilters['State']),
+            currentFilters: updatedFilters
+          }));
           break;
       default:
         break;
@@ -52,12 +61,11 @@ class Layout extends React.Component {
   render() {
 
     const unFilteredProducts = this.props.products;
-    const { products, filterProducts } = this.state;
+    const { products, currentFilters, filterProducts } = this.state;
     
     const productNames = getProductNames(products);
     const states = getStates(products);
     const cities = getCities(products);
-    const currentFilters = [];
 
     const productProviders = { unFilteredProducts, products, filterProducts, productNames, states, cities, currentFilters }
 
