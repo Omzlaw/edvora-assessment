@@ -11,15 +11,20 @@ const ProductCategory = (props) => {
             <h1 className={styles.categoryText}>{productName}</h1>
             <div className={styles.divider}></div>
             <div className={styles.productContainer}>
-            <div className={styles.productSliderContainer}>
+            <div id="slider" className={styles.productSliderContainer}>
                     {products.map((product, index) => (<ProductCard key={index} product={product} />))}
                 </div>
                 <div className={styles.arrow}>
-                    <a><Image src="/arrow.svg" alt="Scrolling Arrow" width={10} height={33} /></a>
+                    <a onClick={(e) => scrollAction(e)}><Image src="/arrow.svg" alt="Scrolling Arrow" width={10} height={33} /></a>
                 </div>
             </div>
         </div>
     );
+}
+
+const scrollAction = (e) => {
+    const productSliderContainer = document.querySelector('#slider');
+    productSliderContainer.scrollRight += 80;
 }
 
 export default ProductCategory;

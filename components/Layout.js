@@ -18,8 +18,22 @@ class Layout extends React.Component {
   constructor(props) {
     super(props);
 
+    this.filterProducts = (filter, type) => {
+      switch (type) {
+        case 'product':
+          this.setState({
+            products: this.getProductByName(this.state.products, filter),
+          })
+          break;
+      
+        default:
+          break;
+      }
+    };
+
     this.state = {
-      products: props.products
+      products: props.products,
+      filterProducts: this.filterProducts
     }
   }
 
@@ -29,34 +43,37 @@ class Layout extends React.Component {
 
 
   render() {
-  const { products } = this.state;
-  const productNames = getProductNames(products);
-  const states = getStates(products);
-  const cities = getCities(products);
-  const currentFilters = [];
-      return (
-        <ProductsContext.Provider value={{ products, productNames, states, cities, currentFilters }}>
-          <div className={styles.container}>
-            <div className={styles.leftContainer}>
-              <FilterCard
+    const { products, filterProducts } = this.state;
+    const productNames = getProductNames(products);
+    const states = getStates(products);
+    const cities = getCities(products);
+    const currentFilters = [];
+
+    const productProviders = { products, filterProducts, productNames, states, cities, currentFilters }
+
+    return (
+      <ProductsContext.Provider value={productProviders}>
+        <div className={styles.container}>
+          <div className={styles.leftContainer}>
+            <FilterCard
                 heading="Filters"
               />
-            </div>
-            <div className={styles.rightcontainer}>
-              <h1 className={styles.header}>Edvora</h1>
-              <h2 className={styles.subHeader}>Products</h2>
+          </div>
+          <div className={styles.rightcontainer}>
+            <h1 className={styles.header}>Edvora</h1>
+            <h2 className={styles.subHeader}>Products</h2>
     
-              <div className={styles.productCategoryContainer}>
-                {productNames.map((productName, index) => (
-                  <ProductCategory
-                    key={index}
-                    productName={productName}
-                    products={this.getProductByName(products, productName)}
+            <div className={styles.productCategoryContainer}>
+              {productNames.map((productName, index) => (
+                <ProductCategory
+                  key={index}
+                  productName={productName}
+                  products={this.getProductByName(products, productName)}
                   />
-                ))}
-              </div>
+              ))}
             </div>
           </div>
+        </div>
       </ProductsContext.Provider>
     );
   }

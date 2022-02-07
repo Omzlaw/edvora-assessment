@@ -1,23 +1,25 @@
+import ProductsContext from '../contexts/products/productsContext';
 import styles from '../styles/Dropdown.module.css';
 
 
 const Dropdown = (props) => {
     const {filterType, options} = props;
     return (
-        <div className={styles.container}>
-            <select onChange={handleSelectChange} value={filterType} className={styles.dropdown}>
-                <option className={styles.option} value={filterType} disabled>{filterType}</option>
-                {
-                    options.map((option, index) => (<option key={index} className={styles.option} value={option}>{option}</option>))
-                }
+        <ProductsContext.Consumer>
+            {({filterProducts}) => (
+                <div className={styles.container}>
+                    <select onChange={(e) => filterProducts(e.target.value, filterType)} defaultValue={filterType} className={styles.dropdown}>
+                        <option className={styles.option} value={filterType}>{filterType}</option>
+                        {
+                            options.map((option, index) => (<option key={index} className={styles.option} value={option}>{option}</option>))
+                        }
 
-            </select>
-        </div>
+                    </select>
+                </div>
+            )}
+        </ProductsContext.Consumer>
     );
 } 
 
-const handleSelectChange = (event) => {
-    console.log(event);
-}
 
 export default Dropdown;
