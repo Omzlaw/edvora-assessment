@@ -1,0 +1,18 @@
+.container {
+    margin-bottom: 12.5px;
+}
+
+.dropdown {
+    width: 168.45px;
+    height: 37.5px;
+    background: #232323;
+    border-radius: 4.68775px;
+    color: #fff;
+    border-color: #232323;
+    padding-left: 13px;
+}
+
+.option {
+    font-size: 17px;
+    line-height: 20px;
+}

@@ -3,10 +3,20 @@
     height: 275px;
     background: #131313;
     border-radius: 15px;
+    padding-left: 25px;
+    padding-top: 12px;
 }
 
 .text {
     font-size: 20px;
     line-height: 24px;
     color: #A5A5A5;
+}
+
+.line {
+    width: 150px;
+    height: 0px;
+    border-bottom: 1px solid #CBCBCB;
+    margin-bottom: 36px;
+    /* margin-bottom: 95px; */
 }
