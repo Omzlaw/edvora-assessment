@@ -62,4 +62,22 @@
     line-height: 13px;
     color: rgba(255, 255, 255, 0.6);
     margin-top: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+
+.productDescription::-webkit-scrollbar {
+    display: none;
+}
+
+.location {
+    max-width: 120px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+
+.location::-webkit-scrollbar {
+    display: none;
 }

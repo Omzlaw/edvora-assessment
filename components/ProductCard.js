@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
             <div className={styles.cardBody}>
                 <div className={styles.leftSection}>
                     <img src={product.image} width="70" height="70" alt={`${product.product_name}' image`}/>
-                    <p>{product.address.city}, {product.address.state}</p>
+                    <p className={styles.location}>{product.address.city}, {product.address.state}</p>
                 </div>
                 <div className={styles.rightSection}>
                     <h3>{product.product_name}</h3>
