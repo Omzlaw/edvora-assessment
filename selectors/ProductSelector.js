@@ -1,40 +1,47 @@
-export const filterProducts = (products, currentFilters, type) => {
+export const filterProducts = (props, currentFilters, type) => {
+    const {products, dropdowns} = props;
     switch (type) {
       case 'Products':
-        return  filterProductsByProductName(products, currentFilters);
+        return  filterProductsByProductName(products, dropdowns, currentFilters);
       case 'State':
-        return  type == currentFilters['State'] ? filterProductsByProductName(products, currentFilters): filterProductsByState(products, currentFilters);
+        return  type == currentFilters['State'] ? filterProductsByProductName(products, dropdowns, currentFilters): filterProductsByState(products, dropdowns, currentFilters);
       case 'City':
-        return type == currentFilters['City'] ? filterProductsByState(products, currentFilters) : filterProductsByCity(products, currentFilters);
+        return type == currentFilters['City'] ? filterProductsByState(products, dropdowns, currentFilters) : filterProductsByCity(products, dropdowns, currentFilters);
       default:
         break;
     }
 }
 
-export const filterProductsByProductName = (products, currentFilters) => {
+export const filterProductsByProductName = (products, dropdowns, currentFilters) => {
     if(currentFilters['Products'] == 'Products'){
-        return products;
+        return {products: products, dropdowns: dropdowns};
     }
     products = products.filter(product => product.product_name === currentFilters['Products']);
-    return products;
+    dropdowns['State'] = getStates(products);
+    dropdowns['City'] = getCities(products);
+
+    return {products: products, dropdowns: dropdowns};
 }
 
-export const filterProductsByState = (products, currentFilters) => {
+export const filterProductsByState = (products, dropdowns, currentFilters) => {
     if(currentFilters['Products'] == 'Products') {
         products = products.filter(product => product.address.state === currentFilters['State']);
+        dropdowns['City'] = getCities(products);
     }
     else {
-        products = filterProductsByProductName(products, currentFilters)
+        products = filterProductsByProductName(products, dropdowns, currentFilters).products
         .filter(product => product.address.state === currentFilters['State']);
+        dropdowns['City'] = getCities(products);
     }
-    return products;
+    return {products: products, dropdowns: dropdowns};
 }
 
-export const filterProductsByCity = (products, currentFilters) => {
-    const filteredProducts = filterProducts(products, currentFilters, 'State');
-    products = filteredProducts.filter(product => product.address.city === currentFilters['City']);
-    return products;
+export const filterProductsByCity = (products, dropdowns, currentFilters) => {
+    const filteredProducts = filterProducts({products, dropdowns}, currentFilters, 'State');
+    products = filteredProducts.products.filter(product => product.address.city === currentFilters['City']);
+    return {products: products, dropdowns: dropdowns};
 }
+
 
 export const getProductNames = (products) => {
 

@@ -6,7 +6,7 @@ import ProductCategory from "./ProductCategory";
 import {
   getProductNames,
   sortProductsByProductName,
-  filterProducts
+  filterProducts,
 } from "../selectors/ProductSelector";
 
 import ProductsContext from "../contexts/products/productsContext";
@@ -24,22 +24,24 @@ class Layout extends React.Component {
         Products: 'Products',
         State: 'State',
         City: 'City'
-      }
+      },
+      dropdowns: props.dropdowns
     }
   }
 
   filter = (filter, type) => {
     const { currentFilters } = this.state;
     currentFilters[type] = filter;
+
+    const filtered = filterProducts(this.props, currentFilters, type) || [];
+
     this.setState({
-      filteredProducts: filterProducts(this.props.products, currentFilters, type) || [],
-      currentFilters: currentFilters
+      filteredProducts: filtered.products,
+      dropdowns: filtered.dropdowns,
+      currentFilters: currentFilters,
     })
   };
 
-  filterDropdowns = () => {
-    
-  }
 
   render() {
     const { products } = this.props;

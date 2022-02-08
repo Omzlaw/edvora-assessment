@@ -2,7 +2,6 @@
 import styles from '../styles/Home.module.css';
 
 import Layout from '../components/Layout';
-import ProductsContext from '../contexts/products/productsContext';
 
 import {
   getProductNames,
@@ -12,11 +11,11 @@ import {
 
 
 
-export default function Home({products}) {
+export default function Home({products, dropdowns}) {
 
   return (
     <div className={styles.container}>
-          <Layout products={products} />
+          <Layout products={products} dropdowns={dropdowns} />
     </div>
   )
 }
@@ -36,8 +35,13 @@ export async function getServerSideProps (context) {
       notFound: true,
     }
   }
+  const dropdowns = {
+    Products: getProductNames(products),
+    State: getStates(products),
+    City: getCities(products)
+  }
 
   return {
-    props: { products },
+    props: { products, dropdowns },
   }
 }

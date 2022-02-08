@@ -5,27 +5,17 @@ import styles from '../styles/FilterCard.module.css';
 import Dropdown from './Dropdown';
 
 
-import {
-    getProductNames,
-    getStates,
-    getCities
-  } from "../selectors/ProductSelector";
-
 const FilterCard = (props) => {
     const {heading} = props;
-    const { products } = useContext(ProductsContext);
-    const productNames = getProductNames(products);
-    const states = getStates(products);
-    const cities = getCities(products);
-
+    const { dropdowns, currentFilters, filter } = useContext(ProductsContext);
 
     return (
         <div className={styles.container}>
             <h1 className={styles.text}>{heading}</h1>
             <div className={styles.line}></div>
-            <Dropdown options={productNames} filterType="Products" />
-            <Dropdown options={states} filterType="State" />
-            <Dropdown options={cities} filterType="City" />
+            <Dropdown filter={filter} default={currentFilters['Products']} options={dropdowns['Products']} filterType="Products" />
+            <Dropdown filter={filter} default={currentFilters['State']} options={dropdowns['State']} filterType="State" />
+            <Dropdown filter={filter} default={currentFilters['City']} options={dropdowns['City']} filterType="City" />
         </div>
     );
 }
