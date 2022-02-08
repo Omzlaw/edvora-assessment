@@ -30,7 +30,6 @@ class Layout extends React.Component {
   }
 
   filter = (filter, type) => {
-    console.log(this.props.dropdowns);
     const { currentFilters } = this.state;
     currentFilters[type] = filter;
 
