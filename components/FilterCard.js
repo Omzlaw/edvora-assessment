@@ -4,15 +4,20 @@ import styles from '../styles/FilterCard.module.css';
 
 import Dropdown from './Dropdown';
 
+
 import {
     getProductNames,
+    getStates,
+    getCities
   } from "../selectors/ProductSelector";
 
 const FilterCard = (props) => {
     const {heading} = props;
-    const {unFilteredProducts, states, cities} = useContext(ProductsContext);
+    const { products } = useContext(ProductsContext);
+    const productNames = getProductNames(products);
+    const states = getStates(products);
+    const cities = getCities(products);
 
-    const productNames = getProductNames(unFilteredProducts);
 
     return (
         <div className={styles.container}>

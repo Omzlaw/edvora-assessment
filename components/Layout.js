@@ -5,11 +5,8 @@ import ProductCategory from "./ProductCategory";
 
 import {
   getProductNames,
-  getStates,
-  getCities,
-  getProductsByProductName,
-  getProductsByState,
-  getProductsByCity
+  sortProductsByProductName,
+  filterProducts
 } from "../selectors/ProductSelector";
 
 import ProductsContext from "../contexts/products/productsContext";
@@ -18,80 +15,39 @@ import React from "react";
 class Layout extends React.Component {
 
   constructor(props) {
-    super(props);
+    super();
 
     this.state = {
-      products: props.products,
-      filter: this.filter
+      filteredProducts: props.products,
+      filter: this.filter,
+      currentFilters: {
+        Products: 'Products',
+        State: 'State',
+        City: 'City'
+      }
     }
   }
 
-  // filterByProduct = (filter, type, updatedFilters) => {
-  //   if(type = filter) {
-  //     updatedFilters['State'] = 'State';
-  //   }
-  //   this.setState({
-  //     products: type != filter ? getProductsByProductName(this.props.products, filter) : this.props.products,
-  //     currentFilters: updatedFilters
-  //   }, () => {
-  //     this.setState({
-  //       states: getStates(this.state.products),
-  //       cities: getCities(this.state.products),
-  //     })
-  //   });
-  // }
-
-  // filterByState = (filter, type, updatedFilters) => {
-  //   const previousProducts = this.state.currentFilters['Products'] == 'Products' ? this.props.products : getProductsByProductName(this.props.products, this.state.currentFilters['Products']);
-  //   if(type = filter) {
-  //     updatedFilters['City'] = 'City';
-  //   }
-  //   this.setState(prevState => ({
-  //     products: type != filter ? getProductsByState(previousProducts, filter) : getProductsByProductName(this.props.products, prevState.currentFilters['Products']),
-  //     currentFilters: updatedFilters,
-  //   }), () => {
-  //     this.setState({
-  //       cities: getCities(this.state.products),
-  //     })
-  //   });
-  // }
-
-  // filterByCity = (filter, type, updatedFilters) => {
-  //   // const previousProducts = [];
-  //   // previousProducts = this.state.currentFilters['Products'] == 'Products' ? this.props.products : getProductsByProductName(this.props.products, this.state.currentFilters['Products']);
-  //   // previousProducts = this.state.currentFilters['State'] == 'State' ? previousProducts : getProductsByState(previousProducts, filter);
-
-  //   this.setState(prevState => ({
-  //     products: type != filter ? getProductsByCity(prevState.products, filter) : getProductsByState(this.props.products, prevState.currentFilters['State']),
-  //     currentFilters: updatedFilters,
-  //   }));
-  // }
-
   filter = (filter, type) => {
-    // const updatedFilters = this.state.currentFilters
-    // updatedFilters[type] = filter;
-    // switch (type) {
-    //   case 'Products':
-    //     this.filterByProduct(filter, type, updatedFilters)
-    //     break; 
-    //   case 'State':
-    //     this.filterByState(filter, type, updatedFilters)
-    //     break;
-    //   case 'City':
-    //     this.filterByCity(filter, type, updatedFilters)
-    //     break;
-    //   default:
-    //     break;
-    // }
+    const { currentFilters } = this.state;
+    currentFilters[type] = filter;
+    this.setState({
+      filteredProducts: filterProducts(this.props.products, currentFilters, type) || [],
+      currentFilters: currentFilters
+    })
   };
 
-  render() {
+  filterDropdowns = () => {
+    
+  }
 
-    const { products } = this.state;
-    const productNames = getProductNames(products);
+  render() {
+    const { products } = this.props;
+    const { filteredProducts } = this.state;
+    const productNames = getProductNames(filteredProducts);
 
     return (
-      <ProductsContext.Provider value={this.state}>
+      <ProductsContext.Provider value={{ products, ...this.state}}>
         <div className={styles.container}>
           <div className={styles.leftContainer}>
             <FilterCard
@@ -107,7 +63,7 @@ class Layout extends React.Component {
                 <ProductCategory
                   key={index}
                   productName={productName}
-                  products={getProductsByProductName(products, productName)}
+                  products={sortProductsByProductName(filteredProducts, productName)}
                   />
               ))}
             </div>

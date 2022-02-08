@@ -9,10 +9,6 @@ import {useRef} from 'react';
 const ProductCategory = (props) => {
 
     const scrollAction = (e, sliderRef) => {
-        // sliderRef.current !== null ? sliderRef.current.scroll({
-        //     left: 200,
-        //     behavior: 'smooth'
-        // }) : null;
         sliderRef.current.scrollLeft += sliderRef.current.clientWidth - 80;
     }
 

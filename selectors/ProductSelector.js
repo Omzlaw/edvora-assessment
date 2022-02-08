@@ -1,18 +1,39 @@
-  
-
-export const getProductsByProductName =  (products, productName) => {
-    const product = products.filter(product => product.product_name === productName);
-    return product;
+export const filterProducts = (products, currentFilters, type) => {
+    switch (type) {
+      case 'Products':
+        return  filterProductsByProductName(products, currentFilters);
+      case 'State':
+        return  type == currentFilters['State'] ? filterProductsByProductName(products, currentFilters): filterProductsByState(products, currentFilters);
+      case 'City':
+        return type == currentFilters['City'] ? filterProductsByState(products, currentFilters) : filterProductsByCity(products, currentFilters);
+      default:
+        break;
+    }
 }
 
-export const getProductsByState = (products, state) => {
-    const product = products.filter(product => product.address.state === state);
-    return product;
+export const filterProductsByProductName = (products, currentFilters) => {
+    if(currentFilters['Products'] == 'Products'){
+        return products;
+    }
+    products = products.filter(product => product.product_name === currentFilters['Products']);
+    return products;
 }
 
-export const getProductsByCity = (products, city) => {
-    const product = products.filter(product => product.address.city === city);
-    return product;
+export const filterProductsByState = (products, currentFilters) => {
+    if(currentFilters['Products'] == 'Products') {
+        products = products.filter(product => product.address.state === currentFilters['State']);
+    }
+    else {
+        products = filterProductsByProductName(products, currentFilters)
+        .filter(product => product.address.state === currentFilters['State']);
+    }
+    return products;
+}
+
+export const filterProductsByCity = (products, currentFilters) => {
+    const filteredProducts = filterProducts(products, currentFilters, 'State');
+    products = filteredProducts.filter(product => product.address.city === currentFilters['City']);
+    return products;
 }
 
 export const getProductNames = (products) => {
@@ -37,4 +58,9 @@ export const getCities = (products) => {
         address: {city},
     }) => [city, city]))  
     return [...map.values()];
+}
+
+export const sortProductsByProductName = (products, productName) => {
+    products = products.filter(product => product.product_name === productName);
+    return products;
 }
