@@ -25,11 +25,12 @@ class Layout extends React.Component {
         State: 'State',
         City: 'City'
       },
-      dropdowns: props.dropdowns
+      filteredDropdowns: props.dropdowns
     }
   }
 
   filter = (filter, type) => {
+    console.log(this.props.dropdowns);
     const { currentFilters } = this.state;
     currentFilters[type] = filter;
 
@@ -37,7 +38,7 @@ class Layout extends React.Component {
 
     this.setState({
       filteredProducts: filtered.products,
-      dropdowns: filtered.dropdowns,
+      filteredDropdowns: filtered.dropdowns,
       currentFilters: currentFilters,
     })
   };

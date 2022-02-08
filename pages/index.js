@@ -20,10 +20,6 @@ export default function Home({products, dropdowns}) {
   )
 }
 
-const filterProducts = () => {
-
-}
-
 
 export async function getServerSideProps (context) {
   const res = await fetch(`https://assessment-edvora.herokuapp.com`)

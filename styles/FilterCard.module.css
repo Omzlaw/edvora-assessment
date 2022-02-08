@@ -20,3 +20,13 @@
     margin-bottom: 36px;
     /* margin-bottom: 95px; */
 }
+
+.dropdownTypes {
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+
+.dropdownTypes::-webkit-scrollbar {
+    display: none;
+}

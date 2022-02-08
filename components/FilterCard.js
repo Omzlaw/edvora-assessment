@@ -7,15 +7,20 @@ import Dropdown from './Dropdown';
 
 const FilterCard = (props) => {
     const {heading} = props;
-    const { dropdowns, currentFilters, filter } = useContext(ProductsContext);
+    const { filteredDropdowns, currentFilters, filter } = useContext(ProductsContext);
+
+    const dropdownKeys = Object.keys(currentFilters); 
 
     return (
         <div className={styles.container}>
             <h1 className={styles.text}>{heading}</h1>
             <div className={styles.line}></div>
-            <Dropdown filter={filter} default={currentFilters['Products']} options={dropdowns['Products']} filterType="Products" />
-            <Dropdown filter={filter} default={currentFilters['State']} options={dropdowns['State']} filterType="State" />
-            <Dropdown filter={filter} default={currentFilters['City']} options={dropdowns['City']} filterType="City" />
+            <div className={styles.dropdownTypes}>
+                {
+                    dropdownKeys.map((key, index) =>      
+                    (<Dropdown key={index} filter={filter} default={currentFilters[key]} options={filteredDropdowns[key]} filterType={key} />))
+                }
+            </div>
         </div>
     );
 }

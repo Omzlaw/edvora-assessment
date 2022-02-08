@@ -17,8 +17,8 @@ export const filterProductsByProductName = (products, dropdowns, currentFilters)
         return {products: products, dropdowns: dropdowns};
     }
     products = products.filter(product => product.product_name === currentFilters['Products']);
-    dropdowns['State'] = getStates(products);
-    dropdowns['City'] = getCities(products);
+    // dropdowns['State'] = getStates(products);
+    // dropdowns['City'] = getCities(products);
 
     return {products: products, dropdowns: dropdowns};
 }
@@ -26,12 +26,12 @@ export const filterProductsByProductName = (products, dropdowns, currentFilters)
 export const filterProductsByState = (products, dropdowns, currentFilters) => {
     if(currentFilters['Products'] == 'Products') {
         products = products.filter(product => product.address.state === currentFilters['State']);
-        dropdowns['City'] = getCities(products);
+        // dropdowns['City'] = getCities(products);
     }
     else {
         products = filterProductsByProductName(products, dropdowns, currentFilters).products
         .filter(product => product.address.state === currentFilters['State']);
-        dropdowns['City'] = getCities(products);
+        // dropdowns['City'] = getCities(products);
     }
     return {products: products, dropdowns: dropdowns};
 }
