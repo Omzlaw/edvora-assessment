@@ -7,6 +7,15 @@ import {useRef} from 'react';
 
 
 const ProductCategory = (props) => {
+
+    const scrollAction = (e, sliderRef) => {
+        // sliderRef.current !== null ? sliderRef.current.scroll({
+        //     left: 200,
+        //     behavior: 'smooth'
+        // }) : null;
+        sliderRef.current.scrollLeft += sliderRef.current.clientWidth - 80;
+    }
+
     const sliderRef = useRef(null);
     const {productName, products} = props;
     return (
@@ -23,10 +32,6 @@ const ProductCategory = (props) => {
             </div>
         </div>
     );
-}
-
-const scrollAction = (e, sliderRef) => {
-    sliderRef.current.scrollLeft += 80;
 }
 
 

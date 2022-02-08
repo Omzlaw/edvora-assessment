@@ -6,8 +6,6 @@ import Dropdown from './Dropdown';
 
 import {
     getProductNames,
-    getStates,
-    getCities,
   } from "../selectors/ProductSelector";
 
 const FilterCard = (props) => {

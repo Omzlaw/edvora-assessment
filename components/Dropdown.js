@@ -6,9 +6,9 @@ const Dropdown = (props) => {
     const {filterType, options} = props;
     return (
         <ProductsContext.Consumer>
-            {({filterProducts}) => (
+            {({filter}) => (
                 <div className={styles.container}>
-                    <select onChange={(e) => filterProducts(e.target.value, filterType)} defaultValue={filterType} className={styles.dropdown}>
+                    <select onChange={(e) => filter(e.target.value, filterType)} defaultValue={filterType} className={styles.dropdown}>
                         <option className={styles.option} value={filterType}>{filterType}</option>
                         {
                             options.map((option, index) => (<option key={index} className={styles.option} value={option}>{option}</option>))

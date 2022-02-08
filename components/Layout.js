@@ -22,55 +22,76 @@ class Layout extends React.Component {
 
     this.state = {
       products: props.products,
-      currentFilters: {
-        Products: 'Products',
-        State: 'State',
-        City: 'City'
-      },
-      filterProducts: this.filterProducts
+      filter: this.filter
     }
   }
 
-  filterProducts = (filter, type) => {
-    const updatedFilters = this.state.currentFilters
-    updatedFilters[type] = filter;
-    switch (type) {
-      case 'Products':
-        this.setState({
-          products: type != filter ? getProductsByProductName(this.props.products, filter) : this.props.products,
-          currentFilters: updatedFilters
-        });
-        break;
-      case 'State':
-        this.setState(prevState => ({
-          products: type != filter ? getProductsByState(this.props.products, filter) : getProductsByProductName(this.props.products, prevState.currentFilters['Products']),
-          currentFilters: updatedFilters
-        }));
-        break;
-        case 'City':
-          this.setState(prevState => ({
-            products: type != filter ? getProductsByCity(this.props.products, filter) : getProductsByState(this.props.products, stprevStateate.currentFilters['State']),
-            currentFilters: updatedFilters
-          }));
-          break;
-      default:
-        break;
-    }
+  // filterByProduct = (filter, type, updatedFilters) => {
+  //   if(type = filter) {
+  //     updatedFilters['State'] = 'State';
+  //   }
+  //   this.setState({
+  //     products: type != filter ? getProductsByProductName(this.props.products, filter) : this.props.products,
+  //     currentFilters: updatedFilters
+  //   }, () => {
+  //     this.setState({
+  //       states: getStates(this.state.products),
+  //       cities: getCities(this.state.products),
+  //     })
+  //   });
+  // }
+
+  // filterByState = (filter, type, updatedFilters) => {
+  //   const previousProducts = this.state.currentFilters['Products'] == 'Products' ? this.props.products : getProductsByProductName(this.props.products, this.state.currentFilters['Products']);
+  //   if(type = filter) {
+  //     updatedFilters['City'] = 'City';
+  //   }
+  //   this.setState(prevState => ({
+  //     products: type != filter ? getProductsByState(previousProducts, filter) : getProductsByProductName(this.props.products, prevState.currentFilters['Products']),
+  //     currentFilters: updatedFilters,
+  //   }), () => {
+  //     this.setState({
+  //       cities: getCities(this.state.products),
+  //     })
+  //   });
+  // }
+
+  // filterByCity = (filter, type, updatedFilters) => {
+  //   // const previousProducts = [];
+  //   // previousProducts = this.state.currentFilters['Products'] == 'Products' ? this.props.products : getProductsByProductName(this.props.products, this.state.currentFilters['Products']);
+  //   // previousProducts = this.state.currentFilters['State'] == 'State' ? previousProducts : getProductsByState(previousProducts, filter);
+
+  //   this.setState(prevState => ({
+  //     products: type != filter ? getProductsByCity(prevState.products, filter) : getProductsByState(this.props.products, prevState.currentFilters['State']),
+  //     currentFilters: updatedFilters,
+  //   }));
+  // }
+
+  filter = (filter, type) => {
+    // const updatedFilters = this.state.currentFilters
+    // updatedFilters[type] = filter;
+    // switch (type) {
+    //   case 'Products':
+    //     this.filterByProduct(filter, type, updatedFilters)
+    //     break; 
+    //   case 'State':
+    //     this.filterByState(filter, type, updatedFilters)
+    //     break;
+    //   case 'City':
+    //     this.filterByCity(filter, type, updatedFilters)
+    //     break;
+    //   default:
+    //     break;
+    // }
   };
 
   render() {
 
-    const unFilteredProducts = this.props.products;
-    const { products, currentFilters, filterProducts } = this.state;
-    
+    const { products } = this.state;
     const productNames = getProductNames(products);
-    const states = getStates(products);
-    const cities = getCities(products);
-
-    const productProviders = { unFilteredProducts, products, filterProducts, productNames, states, cities, currentFilters }
 
     return (
-      <ProductsContext.Provider value={productProviders}>
+      <ProductsContext.Provider value={this.state}>
         <div className={styles.container}>
           <div className={styles.leftContainer}>
             <FilterCard
