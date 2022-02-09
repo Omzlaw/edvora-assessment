@@ -33,6 +33,15 @@ class Layout extends React.Component {
     const { currentFilters } = this.state;
     currentFilters[type] = filter;
 
+    if(type == 'Products' && filter != 'Products'){
+      currentFilters['State']= 'State';
+      currentFilters['City']= 'City'
+    }
+
+    if(type == 'State' && filter != 'State'){
+      currentFilters['City']= 'City'
+    }
+
     const filtered = filterProducts(this.props, currentFilters, type) || [];
 
     this.setState({

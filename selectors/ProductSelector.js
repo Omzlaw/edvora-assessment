@@ -5,7 +5,7 @@ export const filterProducts = (props, currentFilters, type) => {
       case 'Products':
         return  filterProductsByProductName(products, dropdownsClone, currentFilters);
       case 'State':
-        return  type == currentFilters['State'] ? filterProductsByProductName(products, dropdownsClone, currentFilters) 
+        return type == currentFilters['State'] ? filterProductsByProductName(products, dropdownsClone, currentFilters) 
         : filterProductsByState(products, dropdownsClone, currentFilters);
       case 'City':
         return type == currentFilters['City'] ? filterProductsByState(products, dropdownsClone, currentFilters) 
